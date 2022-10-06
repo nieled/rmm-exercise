@@ -14,7 +14,8 @@ import java.math.BigDecimal;
 public class Service {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
     private BigDecimal cost;
 }

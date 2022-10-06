@@ -13,6 +13,7 @@ import javax.persistence.*;
 public class Device {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
 }
