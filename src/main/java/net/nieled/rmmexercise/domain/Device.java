@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @AllArgsConstructor
@@ -23,5 +23,5 @@ public class Device {
 
     @OneToMany
     @JoinTable
-    private List<Service> services;
+    private Set<Service> services;
 }
