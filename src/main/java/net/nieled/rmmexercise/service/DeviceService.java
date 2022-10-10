@@ -41,6 +41,13 @@ public interface DeviceService {
     List<Device> findAll();
 
     /**
+     * Get all owned Devices.
+     *
+     * @return the list of owned devices.
+     */
+    List<Device> findAllOwned();
+
+    /**
      * Get the "id" device.
      *
      * @param id the id of the device.

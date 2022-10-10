@@ -2,6 +2,7 @@ package net.nieled.rmmexercise.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import net.nieled.rmmexercise.domain.Device;
+import net.nieled.rmmexercise.domain.Service;
 import net.nieled.rmmexercise.repository.DeviceRepository;
 import net.nieled.rmmexercise.service.DeviceService;
 import org.springframework.http.HttpStatus;
@@ -9,10 +10,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.math.BigDecimal;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Slf4j
 @RestController
@@ -135,5 +138,17 @@ public class DeviceResource {
         log.debug("REST request to delete device with id : {}", id);
         deviceService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/devices/cost")
+    public ResponseEntity<?> calculateCost() {
+        log.debug("REST request to calculate the monthly cost of devices.");
+        var devices = deviceService.findAllOwned();
+        var cost = devices.stream()
+                .map(Device::getServices)
+                .flatMap(Set::stream)
+                .map(Service::getCost)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        return ResponseEntity.ok().body(cost);
     }
 }

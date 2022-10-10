@@ -58,6 +58,13 @@ public class DeviceServiceImpl implements DeviceService {
     @Transactional(readOnly = true)
     public List<Device> findAll() {
         log.debug("Request to get all Devices");
+        return deviceRepository.findAll();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Device> findAllOwned() {
+        log.debug("Request to get all owned Devices");
         return SecurityUtils
                 .getCurrentUserLogin()
                 .map(deviceRepository::findByUserEmail)
