@@ -17,3 +17,8 @@ spring:
       enabled: true
       settings:
         web-allow-others: false
+
+app:
+  jwt:
+    secret:
+      DPqg72PiMuMSdZZNTvibcX1WmiJyYvhFw4RN0tm3gxuOAJPZGbnT1a1VNYmoVBLXHwIgw8MRMPSPqhaxdW1YQ1jkl3oiu
