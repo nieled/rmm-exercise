@@ -6,6 +6,9 @@ import net.nieled.rmmexercise.repository.ServiceRepository;
 import net.nieled.rmmexercise.service.ServiceService;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * Service Implementation for {@link Service}
+ */
 @Slf4j
 @org.springframework.stereotype.Service
 @Transactional
