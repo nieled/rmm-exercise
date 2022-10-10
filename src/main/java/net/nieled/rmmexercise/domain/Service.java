@@ -3,6 +3,7 @@ package net.nieled.rmmexercise.domain;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import net.nieled.rmmexercise.domain.enums.OS;
 
 import javax.persistence.*;
@@ -12,6 +13,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 @Table(uniqueConstraints = {
         @UniqueConstraint(columnNames = {"name", "os"})
 })

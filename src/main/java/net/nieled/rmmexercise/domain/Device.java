@@ -24,7 +24,7 @@ public class Device {
     @ManyToOne
     private DeviceType deviceType;
 
-    @OneToMany
+    @ManyToMany
     @JoinTable
     private Set<Service> services = new HashSet<>();
 }
