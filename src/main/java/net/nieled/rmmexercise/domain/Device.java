@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -23,5 +24,5 @@ public class Device {
 
     @OneToMany
     @JoinTable
-    private Set<Service> services;
+    private Set<Service> services = new HashSet<>();
 }
