@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Service Implementation for {@link Device}
@@ -38,10 +39,30 @@ public class DeviceServiceImpl implements DeviceService {
     }
 
     @Override
+    public Optional<Device> partialUpdate(Device device) {
+        logger.debug("Request to partially update Device : {}", device);
+        return deviceRepository
+                .findById(device.getId())
+                .map(existingDevice -> {
+                    if (device.getSystemName() != null) existingDevice.setSystemName(device.getSystemName());
+                    if (device.getDeviceType() != null) existingDevice.setDeviceType(device.getDeviceType());
+                    return existingDevice;
+                })
+                .map(deviceRepository::save);
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public List<Device> findAll() {
         logger.debug("Request to get all Devices");
         return deviceRepository.findAll();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<Device> findOne(Long id) {
+        logger.debug("Request to get the Device with id : {}", id);
+        return deviceRepository.findById(id);
     }
 
     @Override

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/service")
+@RequestMapping("/api")
 public class ServiceResource {
 
     private final Logger logger = LoggerFactory.getLogger(ServiceResource.class);
