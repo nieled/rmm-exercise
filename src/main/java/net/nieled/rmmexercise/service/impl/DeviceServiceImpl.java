@@ -3,6 +3,7 @@ package net.nieled.rmmexercise.service.impl;
 import lombok.extern.slf4j.Slf4j;
 import net.nieled.rmmexercise.domain.Device;
 import net.nieled.rmmexercise.repository.DeviceRepository;
+import net.nieled.rmmexercise.security.SecurityUtils;
 import net.nieled.rmmexercise.service.DeviceService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,6 +54,8 @@ public class DeviceServiceImpl implements DeviceService {
     @Transactional(readOnly = true)
     public List<Device> findAll() {
         log.debug("Request to get all Devices");
+        var foo = SecurityUtils.getCurrentUserLogin();
+        log.debug("current user : {} ", foo);
         return deviceRepository.findAll();
     }
 
