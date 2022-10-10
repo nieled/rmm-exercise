@@ -15,3 +15,6 @@ INSERT INTO DEVICE_TYPE (description)
 VALUES ('Windows Server');
 INSERT INTO DEVICE_TYPE (description)
 VALUES ('Mac');
+
+INSERT INTO USERS (email, password)
+VALUES ('user@email.com', '$2a$10$3kGq1Nbli6IUCIyBCn.wsO3GVI/9Hy40xQGLvND4RtiuqqcZkp2IC');
