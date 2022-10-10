@@ -1,5 +1,7 @@
-INSERT INTO SERVICE (name, cost)
-VALUES ('Antivirus', 5);
+INSERT INTO SERVICE (name, cost, os)
+VALUES ('Antivirus', 5, 'WINDOWS');
+INSERT INTO SERVICE (name, cost, os)
+VALUES ('Antivirus', 7, 'MACOS');
 INSERT INTO SERVICE (name, cost)
 VALUES ('Backup', 3);
 INSERT INTO SERVICE (name, cost)

@@ -12,6 +12,9 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Table(uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"name", "os"})
+})
 public class Service {
 
     @Id
