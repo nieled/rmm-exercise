@@ -13,6 +13,7 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http.headers().frameOptions().sameOrigin();
         http.csrf()
                 .ignoringAntMatchers("/h2-console/**")
                 .disable();
