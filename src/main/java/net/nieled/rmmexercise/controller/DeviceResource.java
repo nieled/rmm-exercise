@@ -1,10 +1,9 @@
 package net.nieled.rmmexercise.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import net.nieled.rmmexercise.domain.Device;
 import net.nieled.rmmexercise.repository.DeviceRepository;
 import net.nieled.rmmexercise.service.DeviceService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,11 +14,10 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 
+@Slf4j
 @RestController
 @RequestMapping("/api")
 public class DeviceResource {
-
-    private final Logger logger = LoggerFactory.getLogger(DeviceResource.class);
 
     private final DeviceService deviceService;
     private final DeviceRepository deviceRepository;
@@ -36,7 +34,7 @@ public class DeviceResource {
      */
     @GetMapping("/devices")
     public ResponseEntity<List<Device>> getAllDevices() {
-        logger.debug("REST request to get all devices");
+        log.debug("REST request to get all devices");
         var devices = deviceService.findAll();
         return ResponseEntity.ok().body(devices);
     }
@@ -49,7 +47,7 @@ public class DeviceResource {
      */
     @GetMapping("/devices/{id}")
     public ResponseEntity<Device> getDevice(@PathVariable Long id) {
-        logger.debug("REST request to get device with id : {}", id);
+        log.debug("REST request to get device with id : {}", id);
         var response = deviceService.findOne(id);
         return response
                 .map(device -> ResponseEntity.ok().body(device))
@@ -65,7 +63,7 @@ public class DeviceResource {
      */
     @PostMapping("/devices")
     public ResponseEntity<Device> createDevice(@RequestBody Device device) throws URISyntaxException {
-        logger.debug("REST request to create a new device : {}", device);
+        log.debug("REST request to create a new device : {}", device);
         if (device.getId() != null)
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "New devices cannot already have an ID");
         var result = deviceService.save(device);
@@ -86,7 +84,7 @@ public class DeviceResource {
             @PathVariable(value = "id", required = false) final long id,
             @RequestBody Device device
     ) {
-        logger.debug("REST request to update a device : {}, {}", id, device);
+        log.debug("REST request to update a device : {}, {}", id, device);
         if (device.getId() == null)
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid ID. ID cannot be null.");
         if (!Objects.equals(id, device.getId()))
@@ -112,7 +110,7 @@ public class DeviceResource {
             @PathVariable(value = "id", required = false) final Long id,
             @RequestBody Device device
     ) {
-        logger.debug("REST request to partially update a device : {}, {}", id, device);
+        log.debug("REST request to partially update a device : {}, {}", id, device);
         if (device.getId() == null)
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid ID. ID cannot be null.");
         if (!Objects.equals(id, device.getId()))
@@ -134,7 +132,7 @@ public class DeviceResource {
      */
     @DeleteMapping("/devices/{id}")
     public ResponseEntity<Void> deleteDevice(@PathVariable Long id) {
-        logger.debug("REST request to delete device with id : {}", id);
+        log.debug("REST request to delete device with id : {}", id);
         deviceService.delete(id);
         return ResponseEntity.noContent().build();
     }
