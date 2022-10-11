@@ -3,23 +3,33 @@ package net.nieled.rmmexercise.controller;
 import net.nieled.rmmexercise.IntegrationTest;
 import net.nieled.rmmexercise.TestUtil;
 import net.nieled.rmmexercise.domain.Device;
+import net.nieled.rmmexercise.domain.Service;
+import net.nieled.rmmexercise.domain.enums.OS;
 import net.nieled.rmmexercise.repository.DeviceRepository;
+import net.nieled.rmmexercise.repository.ServiceRepository;
+import net.nieled.rmmexercise.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.http.MediaType;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -40,6 +50,12 @@ public class DeviceResourceTest {
 
     @Autowired
     private DeviceRepository deviceRepository;
+
+    @Autowired
+    private ServiceRepository serviceRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private EntityManager em;
@@ -207,5 +223,31 @@ public class DeviceResourceTest {
 
         var deviceList = deviceRepository.findAll();
         assertThat(deviceList).hasSize(databaseSizeBeforeDelete - 1);
+    }
+
+    @Test
+    @Transactional
+    void getCostOfServices() throws Exception {
+        SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
+        securityContext.setAuthentication(new UsernamePasswordAuthenticationToken("user@email.com", "password"));
+        SecurityContextHolder.setContext(securityContext);
+        var newUser = userRepository.findByEmail("user@email.com").get();
+
+        var serviceA = new Service(null, "SERVICE_A", new BigDecimal(1), OS.WINDOWS);
+        var serviceB = new Service(null, "SERVICE_B", new BigDecimal(2), OS.MACOS);
+        var serviceC = new Service(null, "SERVICE_C", new BigDecimal(3), null);
+        var servicesDeviceA = serviceRepository.saveAll(Arrays.asList(serviceA, serviceB));
+        var servicesDeviceB = serviceRepository.saveAll(Arrays.asList(serviceA, serviceC));
+
+        var deviceA = new Device(null, DEFAULT_SYSTEM_NAME, null, new HashSet<>(servicesDeviceA), newUser);
+        var deviceB = new Device(null, DEFAULT_SYSTEM_NAME, null, new HashSet<>(servicesDeviceB), newUser);
+        deviceRepository.saveAll(Arrays.asList(deviceA, deviceB));
+
+        restDeviceMockMvc
+                .perform(
+                        get(ENTITY_API_URL + "/cost").with(user("user@email.com"))
+                )
+                .andExpect(status().isOk())
+                .andExpect(content().string("7"));
     }
 }
