@@ -1,7 +1,6 @@
-package net.nieled.rmmexercise;
+package net.nieled.rmmexercise.repository;
 
 import net.nieled.rmmexercise.domain.User;
-import net.nieled.rmmexercise.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
