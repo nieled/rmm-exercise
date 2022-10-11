@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -30,7 +31,7 @@ public class ServiceResource {
      * @throws URISyntaxException Incorrect URI syntax.
      */
     @PostMapping("/services")
-    public ResponseEntity<Service> createService(@RequestBody Service service) throws URISyntaxException {
+    public ResponseEntity<Service> createService(@Valid @RequestBody Service service) throws URISyntaxException {
         log.debug("REST request to create a new service : {}", service);
         if (service.getId() != null)
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "New services cannot already have an ID");

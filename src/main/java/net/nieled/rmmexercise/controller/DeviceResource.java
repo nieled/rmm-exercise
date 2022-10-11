@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -65,7 +66,7 @@ public class DeviceResource {
      * @throws URISyntaxException Incorrect URI syntax.
      */
     @PostMapping("/devices")
-    public ResponseEntity<Device> createDevice(@RequestBody Device device) throws URISyntaxException {
+    public ResponseEntity<Device> createDevice(@Valid @RequestBody Device device) throws URISyntaxException {
         log.debug("REST request to create a new device : {}", device);
         if (device.getId() != null)
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "New devices cannot already have an ID");
@@ -85,7 +86,7 @@ public class DeviceResource {
     @PutMapping("/devices/{id}")
     public ResponseEntity<Device> updateDevice(
             @PathVariable(value = "id", required = false) final long id,
-            @RequestBody Device device
+            @Valid @RequestBody Device device
     ) {
         log.debug("REST request to update a device : {}, {}", id, device);
         if (device.getId() == null)
@@ -141,7 +142,7 @@ public class DeviceResource {
     }
 
     @GetMapping("/devices/cost")
-    public ResponseEntity<?> calculateCost() {
+    public ResponseEntity<BigDecimal> calculateCost() {
         log.debug("REST request to calculate the monthly cost of devices.");
         var devices = deviceService.findAllOwned();
         var cost = devices.stream()
