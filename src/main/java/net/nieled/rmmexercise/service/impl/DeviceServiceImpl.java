@@ -38,6 +38,9 @@ public class DeviceServiceImpl implements DeviceService {
     @Override
     public Device update(Device device) {
         log.debug("Request to update Device : {}", device);
+        device.setUser(
+                SecurityUtils.getCurrentUserLogin().flatMap(userRepository::findByEmail).orElse(null)
+        );
         return deviceRepository.save(device);
     }
 

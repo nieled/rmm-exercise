@@ -1,0 +1,400 @@
+_type: export
+__export_format: 4
+__export_date: 2022-10-12T03:09:22.051Z
+__export_source: insomnia.desktop.app:v2020.4.0
+resources:
+  - _id: req_0056dbd55fb74e55bc916a81a3fa1b6b
+    parentId: wrk_23942588bed84414a02b0c582299cd87
+    modified: 1665541611943
+    created: 1665540948968
+    url: "{{ baseUrl }}/login"
+    name: Login
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"email": "{{ email }}",
+        	"password": "{{ password }}"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_09c8ce3c264b4baf93d59c80d90a785b
+    authentication: {}
+    metaSortKey: -1665540948968
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: wrk_23942588bed84414a02b0c582299cd87
+    parentId: null
+    modified: 1665540884004
+    created: 1665540884004
+    name: rmm
+    description: ""
+    scope: null
+    _type: workspace
+  - _id: req_0a91386c5a4e40f3b6ada6814da0f2e8
+    parentId: fld_1ad3b79c224d4e5fad85336f0bf22633
+    modified: 1665543079189
+    created: 1665541736974
+    url: "{{ baseUrl }}/devices"
+    name: Create device
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"systemName": "Windows Server - Ichi",
+        	"deviceType": {
+        		"id": 1
+        	},
+        	"services": [
+        		{
+        			"id": 1
+        		},
+        		{
+        			"id": 3
+        		},
+        		{
+        			"id": 5
+        		}
+        	]
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_09c8ce3c264b4baf93d59c80d90a785b
+    authentication:
+      type: bearer
+      token: "{% response 'body', 'req_0056dbd55fb74e55bc916a81a3fa1b6b',
+        'b64::JC5hY2Nlc3NUb2tlbg==::46b', 'always', 60 %}"
+    metaSortKey: -1665413493770.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_1ad3b79c224d4e5fad85336f0bf22633
+    parentId: wrk_23942588bed84414a02b0c582299cd87
+    modified: 1665541433984
+    created: 1665541430708
+    name: Devices
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1665455978753
+    _type: request_group
+  - _id: req_ee5f0794763e4bd58a606e8df463a428
+    parentId: fld_1ad3b79c224d4e5fad85336f0bf22633
+    modified: 1665543337482
+    created: 1665542944047
+    url: "{{ baseUrl }}/devices/{% response 'body',
+      'req_0a91386c5a4e40f3b6ada6814da0f2e8', 'b64::JC5pZA==::46b', 'never', 60
+      %}"
+    name: Update device
+    description: ""
+    method: PUT
+    body:
+      mimeType: application/json
+      text: >-
+        {
+        	"id": {% response 'body', 'req_0a91386c5a4e40f3b6ada6814da0f2e8', 'b64::JC5pZA==::46b', 'never', 60 %},
+        	"systemName": "Windows Server - Ni",
+        	"deviceType": {
+        		"id": 1
+        	},
+        	"services": [
+        		{
+        			"id": 1
+        		},
+        		{
+        			"id": 3
+        		},
+        		{
+        			"id": 5
+        		}
+        	]
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_09c8ce3c264b4baf93d59c80d90a785b
+    authentication:
+      type: bearer
+      token: "{% response 'body', 'req_0056dbd55fb74e55bc916a81a3fa1b6b',
+        'b64::JC5hY2Nlc3NUb2tlbg==::46b', 'always', 60 %}"
+    metaSortKey: -1665413493745.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_064898bac7d3456799ad114c27ee2596
+    parentId: fld_1ad3b79c224d4e5fad85336f0bf22633
+    modified: 1665544080563
+    created: 1665543364938
+    url: "{{ baseUrl }}/devices/{% response 'body',
+      'req_0a91386c5a4e40f3b6ada6814da0f2e8', 'b64::JC5pZA==::46b', 'never', 60
+      %}"
+    name: Partially update device
+    description: ""
+    method: PATCH
+    body:
+      mimeType: application/json
+      text: >-
+        {
+        	"id": {% response 'body', 'req_0a91386c5a4e40f3b6ada6814da0f2e8', 'b64::JC5pZA==::46b', 'never', 60 %},
+        	"systemName": "Mac Server - San",
+        	"deviceType": {
+        		"id": 3
+        	}
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_09c8ce3c264b4baf93d59c80d90a785b
+    authentication:
+      type: bearer
+      token: "{% response 'body', 'req_0056dbd55fb74e55bc916a81a3fa1b6b',
+        'b64::JC5hY2Nlc3NUb2tlbg==::46b', 'always', 60 %}"
+    metaSortKey: -1665413493733
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_09a2a7f475e4476691ddcec2c527c3e2
+    parentId: fld_1ad3b79c224d4e5fad85336f0bf22633
+    modified: 1665541516821
+    created: 1665541485674
+    url: "{{ baseUrl }}/devices"
+    name: Fetch all devices
+    description: ""
+    method: GET
+    body:
+      mimeType: application/json
+      text: ""
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_09c8ce3c264b4baf93d59c80d90a785b
+    authentication:
+      type: bearer
+      token: "{% response 'body', 'req_0056dbd55fb74e55bc916a81a3fa1b6b',
+        'b64::JC5hY2Nlc3NUb2tlbg==::46b', 'always', 60 %}"
+    metaSortKey: -1665413493720.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_1d165a50813d44aa8ecec46fc5fc934e
+    parentId: fld_1ad3b79c224d4e5fad85336f0bf22633
+    modified: 1665542518495
+    created: 1665541559061
+    url: "{{ baseUrl }}/devices/{% response 'body',
+      'req_09a2a7f475e4476691ddcec2c527c3e2', 'b64::JFswXS5pZA==::46b', 'never',
+      60 %}"
+    name: Fetch device by ID
+    description: ""
+    method: GET
+    body:
+      mimeType: application/json
+      text: ""
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_09c8ce3c264b4baf93d59c80d90a785b
+    authentication:
+      type: bearer
+      token: "{% response 'body', 'req_0056dbd55fb74e55bc916a81a3fa1b6b',
+        'b64::JC5hY2Nlc3NUb2tlbg==::46b', 'always', 60 %}"
+    metaSortKey: -1665392251179.25
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_a9c04f922e8947a79461330126187b8c
+    parentId: fld_1ad3b79c224d4e5fad85336f0bf22633
+    modified: 1665542593923
+    created: 1665542588933
+    url: "{{ baseUrl }}/devices/cost"
+    name: Calculate total cost
+    description: ""
+    method: GET
+    body:
+      mimeType: application/json
+      text: ""
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_09c8ce3c264b4baf93d59c80d90a785b
+    authentication:
+      type: bearer
+      token: "{% response 'body', 'req_0056dbd55fb74e55bc916a81a3fa1b6b',
+        'b64::JC5hY2Nlc3NUb2tlbg==::46b', 'always', 60 %}"
+    metaSortKey: -1665381629908.625
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_34685d12303b404c930088d2f57e9aaf
+    parentId: fld_1ad3b79c224d4e5fad85336f0bf22633
+    modified: 1665542698822
+    created: 1665542687592
+    url: "{{ baseUrl }}/devices/1"
+    name: Delete a device
+    description: ""
+    method: DELETE
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: "{% response 'body', 'req_0056dbd55fb74e55bc916a81a3fa1b6b',
+        'b64::JC5hY2Nlc3NUb2tlbg==::46b', 'always', 60 %}"
+    metaSortKey: -1665376319273.3125
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_44405aa58e194ad99d7d1861b8b86f53
+    parentId: fld_0d0a26bee2954d50b9743938494dc6b7
+    modified: 1665542772316
+    created: 1665542714612
+    url: "{{ baseUrl }}/services"
+    name: Create service
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"name": "Disk encryption",
+        	"cost": 99.99,
+        	"os": "MACOS"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_09c8ce3c264b4baf93d59c80d90a785b
+    authentication:
+      type: bearer
+      token: "{% response 'body', 'req_0056dbd55fb74e55bc916a81a3fa1b6b',
+        'b64::JC5hY2Nlc3NUb2tlbg==::46b', 'always', 60 %}"
+    metaSortKey: -1665455978653
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_0d0a26bee2954d50b9743938494dc6b7
+    parentId: wrk_23942588bed84414a02b0c582299cd87
+    modified: 1665541443683
+    created: 1665541439773
+    name: Services
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1665455978703
+    _type: request_group
+  - _id: req_cf4475438d8c489f95a367ab4146a255
+    parentId: fld_0d0a26bee2954d50b9743938494dc6b7
+    modified: 1665542813138
+    created: 1665542795023
+    url: "{{ baseUrl }}/services/6"
+    name: Delete service
+    description: ""
+    method: DELETE
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: "{% response 'body', 'req_0056dbd55fb74e55bc916a81a3fa1b6b',
+        'b64::JC5hY2Nlc3NUb2tlbg==::46b', 'always', 60 %}"
+    metaSortKey: -1665434736211.75
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: env_3a3f53acbda3cf3f8d12001674f3e48db5f383df
+    parentId: wrk_23942588bed84414a02b0c582299cd87
+    modified: 1665541207161
+    created: 1665540884095
+    name: Base Environment
+    data:
+      baseUrl: http://localhost:8080/api
+      email: user@email.com
+      password: password
+    dataPropertyOrder:
+      "&":
+        - baseUrl
+        - email
+        - password
+    color: null
+    isPrivate: false
+    metaSortKey: 1665540884095
+    _type: environment
+  - _id: jar_3a3f53acbda3cf3f8d12001674f3e48db5f383df
+    parentId: wrk_23942588bed84414a02b0c582299cd87
+    modified: 1665540884097
+    created: 1665540884097
+    name: Default Jar
+    cookies: []
+    _type: cookie_jar
+  - _id: spc_d718aafd5d824a08b9698e0ef9d95ed3
+    parentId: wrk_23942588bed84414a02b0c582299cd87
+    modified: 1665540884014
+    created: 1665540884014
+    fileName: rmm
+    contents: ""
+    contentType: yaml
+    _type: api_spec
